@@ -1,0 +1,21 @@
+﻿@model GroupViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+
+@Model.Name
+
+<br />
+<br />
+
+<form asp-controller="Groups" asp-action="Edit" asp-route-id="@Model.Id" method="post">
+
+    <label asp-for="Name">Name</label>
+    <input asp-for="Name" />
+    <button type="submit">Save</button>
+
+</form>

@@ -6,8 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PlayBall.GroupManagement.Business.Impl\PlayBall.GroupManagement.Business.Impl.csproj" />
+    <ProjectReference Include="..\PlayBall.GroupManagement.Business\PlayBall.GroupManagement.Business.csproj" />
   </ItemGroup>
 
 </Project>

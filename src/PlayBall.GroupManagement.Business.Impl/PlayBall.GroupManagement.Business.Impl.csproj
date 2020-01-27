@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PlayBall.GroupManagement.Business\PlayBall.GroupManagement.Business.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -14,6 +14,7 @@ namespace Playball.GroupManagement.Web
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("############################# STARTING APPLICATION #############################");
             CreateWebHostBuilder(args).Build().Run();
         }
 
