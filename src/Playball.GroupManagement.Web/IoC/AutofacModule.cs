@@ -25,30 +25,37 @@ namespace Playball.GroupManagement.Web.IoC
 
             public GroupServiceDecorator(IGroupsService inner, ILogger<GroupServiceDecorator> logger)
             {
-                this._inner = inner;
-                this._logger = logger;
-            }
-            public Group Add(Group group)
-            {
-                Console.WriteLine($"########## Hellooooo from {nameof(Add)} ##########");
-                return _inner.Add(group);
+                _inner = inner;
+                _logger = logger;
             }
 
             public IReadOnlyCollection<Group> GetAll()
             {
-                Console.WriteLine($"########## Hellooooo from {nameof(GetAll)} ##########");
-                return _inner.GetAll();
+                using (var scope = _logger.BeginScope("Decorator scope: {decorator}", nameof(GroupServiceDecorator)))
+                {
+                    _logger.LogTrace("########## Hellooooo from {decoratedMethod} ##########", nameof(GetAll));
+                    var result = _inner.GetAll();
+                    _logger.LogTrace("########## Goodbyeee from {decoratedMethod} ##########", nameof(GetAll));
+                    return result;
+                }
+                    
+            }
+
+            public Group Add(Group group)
+            {
+                _logger.LogTrace("########## Hellooooo from {decoratedMethod} ##########", nameof(Add));
+                return _inner.Add(group);
             }
 
             public Group GetById(long id)
             {
-                Console.WriteLine($"########## Hellooooo from {nameof(GetById)} ##########");
+                _logger.LogTrace("########## Hellooooo from {decoratedMethod} ##########", nameof(GetById));
                 return _inner.GetById(id);
             }
 
             public Group Update(Group group)
             {
-                Console.WriteLine($"########## Hellooooo from {nameof(Update)} ##########");
+                _logger.LogTrace("########## Hellooooo from {decoratedMethod} ##########", nameof(Update));
                 return _inner.Update(group);
             }
         }
