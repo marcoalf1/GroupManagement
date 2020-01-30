@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Playball.GroupManagement.Web.Demo;
 using Playball.GroupManagement.Web.Mappings;
 using Playball.GroupManagement.Web.Models;
 using PlayBall.GroupManagement.Business.Services;
@@ -13,17 +10,19 @@ namespace Playball.GroupManagement.Web.Controllers
     [Route("groups")]
     public class GroupsController : Controller
     {
-        private static long currentGroupId = 1;
-        private static List<GroupViewModel> groups = new List<GroupViewModel> { new GroupViewModel { Id = 1, Name = "Sample Group" } };
-
         private readonly IGroupsService _groupsService;
+        private readonly SomeRootConfiguration _config;
+        private readonly DemoSecretsConfiguration _demo;
 
-        public GroupsController(IGroupsService groupsService )
+        public GroupsController(IGroupsService groupsService, SomeRootConfiguration config, DemoSecretsConfiguration demo)
         {
-            this._groupsService = groupsService;
+            _groupsService = groupsService;
+            _config = config;
+            _demo = demo;
         }
 
         [HttpGet]
+        [Route("")]
         public IActionResult Index()
         {
             return View(_groupsService.GetAll().ToViewModel());
