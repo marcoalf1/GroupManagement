@@ -1,7 +1,5 @@
 ﻿using PlayBall.GroupManagement.Business.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PlayBall.GroupManagement.Business.Services
 {

@@ -12,13 +12,13 @@ namespace Playball.GroupManagement.Web.Controllers
     {
         private readonly IGroupsService _groupsService;
         private readonly SomeRootConfiguration _config;
-        private readonly DemoSecretsConfiguration _demo;
+        private readonly DemoSecretsConfiguration _secrets;
 
-        public GroupsController(IGroupsService groupsService, SomeRootConfiguration config, DemoSecretsConfiguration demo)
+        public GroupsController(IGroupsService groupsService, SomeRootConfiguration config, DemoSecretsConfiguration secrets)
         {
             _groupsService = groupsService;
             _config = config;
-            _demo = demo;
+            _secrets = secrets;
         }
 
         [HttpGet]
@@ -54,6 +54,8 @@ namespace Playball.GroupManagement.Web.Controllers
                 return NotFound();
             }
 
+            group.Name = model.Name;
+
             return RedirectToAction("Index");
 
         }
@@ -67,7 +69,7 @@ namespace Playball.GroupManagement.Web.Controllers
 
         [HttpPost]
         [Route("")]
-        public IActionResult Create(GroupViewModel model)
+        public IActionResult CreateReally(GroupViewModel model)
         {
             _groupsService.Add(model.ToServiceModel());
 

@@ -1,11 +1,11 @@
-﻿@model GroupViewModel
+﻿@model Playball.GroupManagement.Web.Models.GroupViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
 
-<form asp-controller="Groups" asp-action="Create" method="post">
+<form asp-controller="Groups" asp-action="CreateReally" method="post">
 
     <label asp-for="Name">Name</label>
     <input asp-for="Name" />
