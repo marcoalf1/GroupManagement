@@ -27,20 +27,20 @@ namespace Playball.GroupManagement.Web
         {
             services.AddMvc();
             // Using IOptions
-            //services.Configure<SomeRootConfiguration>(_config.GetSection("SomeRoot"));
+            // services.Configure<SomeRootConfiguration>(_config.GetSection("SomeRoot"));
 
             // Injecting POCO
-            //var someRootConfiguration = new SomeRootConfiguration();
-            //_config.GetSection("SomeRoot").Bind(someRootConfiguration);
-            //services.AddSingleton(someRootConfiguration);
+            // var someRootConfiguration = new SomeRootConfiguration();
+            // _config.GetSection("SomeRoot").Bind(someRootConfiguration);
+            // services.AddSingleton(someRootConfiguration);
 
             // Injecting POCO, but prettier 
             services.ConfigurePOCO<SomeRootConfiguration>(_config.GetSection("SomeRoot"));
 
-            services.ConfigurePOCO<DemoSecretsConfiguration>(_config.GetSection("DemoSecrets"));
+            //services.ConfigurePOCO<DemoSecretsConfiguration>(_config.GetSection("DemoSecrets"));
 
             //if using default DI container, uncoment
-            //services.AddBussiness();
+            // services.AddBussiness();
 
             // Add Autofac
             var containerBluider = new ContainerBuilder();
@@ -74,6 +74,8 @@ namespace Playball.GroupManagement.Web
             });
 
             app.UseMvc();
+
+           
 
             //app.Run(async (context) =>
             //{
