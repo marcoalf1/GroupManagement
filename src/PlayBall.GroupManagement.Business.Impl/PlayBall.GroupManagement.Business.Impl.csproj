@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PlayBall.GroupManagement.Data\PlayBall.GroupManagement.Data.csproj" />
     <ProjectReference Include="..\PlayBall.GroupManagement.Business\PlayBall.GroupManagement.Business.csproj" />
   </ItemGroup>
 

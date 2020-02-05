@@ -29,33 +29,6 @@ namespace Playball.GroupManagement.Web
             .UseNLog()
             .UseStartup<Startup>();
         
-        // TODO: replace with nlog.config
-        private static void ConfigueNLog()
-        {
-            var config = new LoggingConfiguration();
-
-            var consoleTarget = new ColoredConsoleTarget("coloredConsole")
-            {
-                Layout = @"${date:format=HH\:mm\:ss} ${level} ${message} ${exception}"
-            };
-
-            config.AddTarget(consoleTarget);
-
-            var fileTarget = new FileTarget("file")
-            {
-                FileName = "${basedir}/file.log",
-                Layout = @"${date:format=HH\:mm\:ss} ${level} ${message} ${exception} ${ndlc}"
-            };
-
-            config.AddTarget(fileTarget);
-
-            config.AddRule(LogLevel.Trace, LogLevel.Fatal, consoleTarget, "PlayBall.GroupManagement.Web.IoC.*");
-            config.AddRule(LogLevel.Info, LogLevel.Fatal, consoleTarget);
-            config.AddRule(LogLevel.Warn, LogLevel.Fatal, fileTarget);
-
-            LogManager.Configuration = config;
-
-        }
 
 
     }

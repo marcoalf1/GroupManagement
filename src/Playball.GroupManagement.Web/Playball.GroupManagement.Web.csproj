@@ -7,8 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="5.0.0" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.1" />
+    <Compile Remove="IoC\AutofacModule.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
@@ -16,8 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PlayBall.GroupManagement.Data\PlayBall.GroupManagement.Data.csproj" />
     <ProjectReference Include="..\PlayBall.GroupManagement.Business.Impl\PlayBall.GroupManagement.Business.Impl.csproj" />
     <ProjectReference Include="..\PlayBall.GroupManagement.Business\PlayBall.GroupManagement.Business.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="StartupHerlpers\" />
   </ItemGroup>
 
 </Project>

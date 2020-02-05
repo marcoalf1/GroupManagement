@@ -1,38 +1,70 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Playball.GroupManagement.Web.Demo;
+using Microsoft.Extensions.Logging;
+using Playball.GroupManagement.Web.Demo.Filters;
+//using Playball.GroupManagement.Web.Demo;
 using Playball.GroupManagement.Web.Mappings;
 using Playball.GroupManagement.Web.Models;
+using PlayBall.GroupManagement.Business.Models;
 using PlayBall.GroupManagement.Business.Services;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Playball.GroupManagement.Web.Controllers
 {
-    // localhost:5000/groups
+    //[ServiceFilter(typeof(DemoExceptionFilter))]
+    [DemoExceptionFilterFactoryAttribute]
     [Route("groups")]
     public class GroupsController : Controller
     {
         private readonly IGroupsService _groupsService;
-        private readonly SomeRootConfiguration _config;
-        private readonly DemoSecretsConfiguration _secrets;
 
-        public GroupsController(IGroupsService groupsService, SomeRootConfiguration config, DemoSecretsConfiguration secrets)
+        public GroupsController(IGroupsService groupsService)
         {
             _groupsService = groupsService;
-            _config = config;
-            _secrets = secrets;
         }
 
         [HttpGet]
         [Route("")]
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync(CancellationToken ct)
         {
-            return View(_groupsService.GetAll().ToViewModel());
+            var result = await _groupsService.GetAllAsync(ct);
+            return View(result.ToViewModel());
         }
+
+
+        //[HttpGet]
+        //[Route("")]
+        //public IActionResult IndexAsync()
+        //{
+        //    try
+        //    {
+        //        var result = _groupsService.GetAllAsync(CancellationToken.None).GetAwaiter().GetResult();
+        //        return View(result.ToViewModel());
+        //    }
+        //    catch (NotImplementedException nex)
+        //    {
+        //        _logger.LogError(nex, "Not Implemented Exception");
+        //        return Content("Not Implemented Exception");
+        //    }
+        //    catch (AggregateException aex)
+        //    {
+        //        _logger.LogError(aex, "Aggregate exception");
+        //        return Content("Aggregate");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Unexpected {exType}", ex.GetType());
+        //        return StatusCode(500);
+        //    }
+
+        //}
 
         [HttpGet]
         [Route("{id}")]
-        public IActionResult Details(long id)
+        public async Task<IActionResult> DetailsAsync(long id, CancellationToken ct)
         {
-            var group = _groupsService.GetById(id);
+            var group = await _groupsService.GetByIdAsync(id,ct);
 
             if (group == null)
             {
@@ -42,24 +74,22 @@ namespace Playball.GroupManagement.Web.Controllers
             return View(group.ToViewModel());
         }
 
+        [DemoActionFilter]
         [HttpPost]
         [Route("{id}")]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(long id, GroupViewModel model)
+        public async Task<IActionResult> EditAsync(long id, GroupViewModel model, CancellationToken ct)
         {
-            var group = _groupsService.Update(model.ToServiceModel());
+            var group =  await _groupsService.UpdateAsync(model.ToServiceModel(),ct);
 
             if (group == null)
             {
                 return NotFound();
             }
 
-            group.Name = model.Name;
-
-            return RedirectToAction("Index");
-
+            return RedirectToAction("IndexAsync");
         }
-
+        
         [HttpGet]
         [Route("create")]
         public IActionResult Create()
@@ -67,13 +97,15 @@ namespace Playball.GroupManagement.Web.Controllers
             return View();
         }
 
+        [DemoActionFilter]
         [HttpPost]
         [Route("")]
-        public IActionResult CreateReally(GroupViewModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateReallyAsync(GroupViewModel model, CancellationToken ct)
         {
-            _groupsService.Add(model.ToServiceModel());
+            await _groupsService.AddAsync(model.ToServiceModel(),ct);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("IndexAsync");
         }
 
     }

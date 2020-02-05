@@ -1,16 +1,18 @@
 ﻿using PlayBall.GroupManagement.Business.Models;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PlayBall.GroupManagement.Business.Services
 {
     public interface IGroupsService
     {
-        IReadOnlyCollection<Group> GetAll();
+        Task<IReadOnlyCollection<Group>> GetAllAsync(CancellationToken ct);
 
-        Group GetById(long id);
+        Task<Group> GetByIdAsync(long id, CancellationToken ct);
 
-        Group Update(Group group);
+        Task<Group> UpdateAsync(Group group, CancellationToken ct);
 
-        Group Add(Group group);
+        Task<Group> AddAsync(Group group, CancellationToken ct);
     }
 }
