@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Playball.GroupManagement.Web.Demo.Filters;
-using Playball.GroupManagement.Web.Demo.Middlewares;
 using Playball.GroupManagement.Web.IoC;
 using PlayBall.GroupManagement.Data;
 using System.Threading.Tasks;
@@ -25,10 +23,12 @@ namespace Playball.GroupManagement.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(options =>
-            {
-                options.Filters.Add<DemoActionFilter>();
-            });
+            //services.AddMvc(options =>
+            //{
+            //    options.Filters.Add<DemoActionFilter>();
+            //});
+
+            services.AddMvc();
 
             services.AddDbContext<GroupManagementDbContext>(options =>
                 options.UseSqlServer(_config.GetConnectionString("GroupManagementDbContext")));

@@ -17,7 +17,8 @@ namespace PlayBall.GroupManagement.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("public");
+            //modelBuilder.HasDefaultSchema("public");
+            modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
 
             // Configure entities ...
             modelBuilder.ApplyConfiguration(new GroupEntityConfiguration());

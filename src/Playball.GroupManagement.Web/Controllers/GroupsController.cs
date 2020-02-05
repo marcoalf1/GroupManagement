@@ -1,19 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Playball.GroupManagement.Web.Demo.Filters;
 //using Playball.GroupManagement.Web.Demo;
 using Playball.GroupManagement.Web.Mappings;
 using Playball.GroupManagement.Web.Models;
-using PlayBall.GroupManagement.Business.Models;
 using PlayBall.GroupManagement.Business.Services;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Playball.GroupManagement.Web.Controllers
 {
     //[ServiceFilter(typeof(DemoExceptionFilter))]
-    [DemoExceptionFilterFactoryAttribute]
+    //[DemoExceptionFilterFactoryAttribute]
     [Route("groups")]
     public class GroupsController : Controller
     {
@@ -74,7 +70,7 @@ namespace Playball.GroupManagement.Web.Controllers
             return View(group.ToViewModel());
         }
 
-        [DemoActionFilter]
+        //[DemoActionFilter]
         [HttpPost]
         [Route("{id}")]
         [ValidateAntiForgeryToken]
@@ -97,7 +93,7 @@ namespace Playball.GroupManagement.Web.Controllers
             return View();
         }
 
-        [DemoActionFilter]
+        //[DemoActionFilter]
         [HttpPost]
         [Route("")]
         [ValidateAntiForgeryToken]

@@ -4,7 +4,15 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
 	<UserSecretsId>A1CD619E-A374-4208-8888-42F3DC489F14</UserSecretsId>
+	<LangVersion>7.3</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Demo\Filters\**" />
+    <Content Remove="Demo\Filters\**" />
+    <EmbeddedResource Remove="Demo\Filters\**" />
+    <None Remove="Demo\Filters\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="IoC\AutofacModule.cs" />
@@ -21,10 +29,6 @@
     <ProjectReference Include="..\PlayBall.GroupManagement.Data\PlayBall.GroupManagement.Data.csproj" />
     <ProjectReference Include="..\PlayBall.GroupManagement.Business.Impl\PlayBall.GroupManagement.Business.Impl.csproj" />
     <ProjectReference Include="..\PlayBall.GroupManagement.Business\PlayBall.GroupManagement.Business.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="StartupHerlpers\" />
   </ItemGroup>
 
 </Project>
