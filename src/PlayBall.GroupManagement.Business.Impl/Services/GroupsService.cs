@@ -55,5 +55,15 @@ namespace PlayBall.GroupManagement.Business.Impl.Services
             return addedGroupEntry.Entity.ToService();
         }
 
+        public async Task RemoveAsync(long id, CancellationToken ct)
+        {
+            //var groupEntity = new Group { Id = id };
+            //_context.Entry(groupEntity).State = EntityState.Deleted;
+
+
+            var entityToRemove = await _context.Groups.SingleOrDefaultAsync(g => g.Id == id, ct);
+            _context.Groups.Remove(entityToRemove);
+            await _context.SaveChangesAsync(ct);
+        }
     }
 }

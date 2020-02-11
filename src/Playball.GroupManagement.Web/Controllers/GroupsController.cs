@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-//using Playball.GroupManagement.Web.Demo;
 using Playball.GroupManagement.Web.Mappings;
 using Playball.GroupManagement.Web.Models;
 using PlayBall.GroupManagement.Business.Services;
@@ -8,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Playball.GroupManagement.Web.Controllers
 {
+    //[ApiController]
     [Route("groups")]
     public class GroupsController : ControllerBase
     {
@@ -20,16 +20,15 @@ namespace Playball.GroupManagement.Web.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> IndexAsync(CancellationToken ct)
+        public async Task<IActionResult> GetAllAsync(CancellationToken ct)
         {
             var result = await _groupsService.GetAllAsync(ct);
-            return View(result.ToViewModel());
+            return Ok(result.ToModel());
         }
-
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> DetailsAsync(long id, CancellationToken ct)
+        public async Task<IActionResult> GetByIdAsync(long id, CancellationToken ct)
         {
             var group = await _groupsService.GetByIdAsync(id,ct);
 
@@ -38,42 +37,43 @@ namespace Playball.GroupManagement.Web.Controllers
                 return NotFound();
             }
 
-            return View(group.ToViewModel());
+            return Ok(group.ToModel());
         }
 
-        //[DemoActionFilter]
-        [HttpPost]
+        [HttpPut]
         [Route("{id}")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditAsync(long id, GroupViewModel model, CancellationToken ct)
+        //public async Task<IActionResult> UpdateAsync(long id, [FromQuery]GroupModel model, CancellationToken ct)
+        public async Task<IActionResult> UpdateAsync(long id, GroupModel model, CancellationToken ct)
         {
-            var group =  await _groupsService.UpdateAsync(model.ToServiceModel(),ct);
+            model.Id = id;
 
-            if (group == null)
-            {
-                return NotFound();
-            }
+            var group = await _groupsService.UpdateAsync(model.ToServiceModel(), ct);
 
-            return RedirectToAction("IndexAsync");
-        }
-        
-        [HttpGet]
-        [Route("create")]
-        public IActionResult Create()
-        {
-            return View();
+            return Ok(group.ToModel());
         }
 
-        //[DemoActionFilter]
         [HttpPost]
+        [HttpPut]
         [Route("")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateReallyAsync(GroupViewModel model, CancellationToken ct)
+        //public async Task<IActionResult> AddAsync([FromBody]GroupModel model, CancellationToken ct)
+        public async Task<IActionResult> AddAsync(GroupModel model, CancellationToken ct)
         {
-            await _groupsService.AddAsync(model.ToServiceModel(),ct);
+            model.Id = 0;
+            var group = await _groupsService.AddAsync(model.ToServiceModel(),ct);
 
-            return RedirectToAction("IndexAsync");
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = group.Id }, group);
         }
+
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> RemoveAsync(long id, CancellationToken ct)
+        {
+            await _groupsService.RemoveAsync(id, ct);
+            
+            return NoContent();
+        }
+
 
     }
 }

@@ -8,13 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Demo\Filters\**" />
-    <Content Remove="Demo\Filters\**" />
-    <EmbeddedResource Remove="Demo\Filters\**" />
-    <None Remove="Demo\Filters\**" />
+    <Compile Remove="Views\Groups\**" />
+    <Content Remove="Views\Groups\**" />
+    <EmbeddedResource Remove="Views\Groups\**" />
+    <None Remove="Views\Groups\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Demo\Filters\DemoActionFilter.cs" />
+    <Compile Remove="Demo\Filters\DemoActionFilterAttribute.cs" />
+    <Compile Remove="Demo\Filters\DemoExceptionFilter.cs" />
+    <Compile Remove="Demo\Filters\DemoExceptionFilterFactoryAttribute.cs" />
     <Compile Remove="IoC\AutofacModule.cs" />
   </ItemGroup>
 
