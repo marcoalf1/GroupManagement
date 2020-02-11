@@ -23,15 +23,14 @@ namespace Playball.GroupManagement.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddMvc(options =>
-            //{
-            //    options.Filters.Add<DemoActionFilter>();
-            //});
-
             services.AddMvc();
 
-            services.AddDbContext<GroupManagementDbContext>(options =>
-                options.UseSqlServer(_config.GetConnectionString("GroupManagementDbContext")));
+            services.AddDbContext<GroupManagementDbContext>(options => 
+            {
+                options.UseSqlServer(_config.GetConnectionString("GroupManagementDbContext"));
+                options.EnableSensitiveDataLogging();
+                
+            });
 
             //if using default DI container, uncoment
             services.AddBussiness();
@@ -63,10 +62,6 @@ namespace Playball.GroupManagement.Web
 
             app.Run(async (context) => { await context.Response.WriteAsync("No middlewares could handle the request"); });
 
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("Hello World!");
-            //});
         }
     }
 }

@@ -45,6 +45,7 @@ namespace PlayBall.GroupManagement.Business.Impl.Services
             var updatedGroupEntry = _context.Groups.Update(group.ToEntity());
             await _context.SaveChangesAsync(ct);
             return updatedGroupEntry.Entity.ToService();
+
         }
 
         public async Task<Group> AddAsync(Group group, CancellationToken ct)

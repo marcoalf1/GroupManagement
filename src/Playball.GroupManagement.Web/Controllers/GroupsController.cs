@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace Playball.GroupManagement.Web.Controllers
 {
-    //[ServiceFilter(typeof(DemoExceptionFilter))]
-    //[DemoExceptionFilterFactoryAttribute]
     [Route("groups")]
-    public class GroupsController : Controller
+    public class GroupsController : ControllerBase
     {
         private readonly IGroupsService _groupsService;
 
@@ -28,33 +26,6 @@ namespace Playball.GroupManagement.Web.Controllers
             return View(result.ToViewModel());
         }
 
-
-        //[HttpGet]
-        //[Route("")]
-        //public IActionResult IndexAsync()
-        //{
-        //    try
-        //    {
-        //        var result = _groupsService.GetAllAsync(CancellationToken.None).GetAwaiter().GetResult();
-        //        return View(result.ToViewModel());
-        //    }
-        //    catch (NotImplementedException nex)
-        //    {
-        //        _logger.LogError(nex, "Not Implemented Exception");
-        //        return Content("Not Implemented Exception");
-        //    }
-        //    catch (AggregateException aex)
-        //    {
-        //        _logger.LogError(aex, "Aggregate exception");
-        //        return Content("Aggregate");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(ex, "Unexpected {exType}", ex.GetType());
-        //        return StatusCode(500);
-        //    }
-
-        //}
 
         [HttpGet]
         [Route("{id}")]

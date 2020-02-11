@@ -1,0 +1,6 @@
+﻿EJERCUTAR DESDE ../src/PlayBall.GroupManagement.Data
+
+dotnet ef migrations add InitialMigration --startup-project ../Playball.GroupManagement.Web/Playball.GroupManagement.Web.csproj
+dotnet ef migrations add AddCurrencyToken --startup-project ../Playball.GroupManagement.Web/Playball.GroupManagement.Web.csproj
+
+dotnet ef migrations remove --startup-project ../Playball.GroupManagement.Web/Playball.GroupManagement.Web.csproj --verbose

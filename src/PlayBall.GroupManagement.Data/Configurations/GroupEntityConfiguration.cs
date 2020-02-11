@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PlayBall.GroupManagement.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PlayBall.GroupManagement.Data.Configurations
 {
@@ -16,7 +13,17 @@ namespace PlayBall.GroupManagement.Data.Configurations
             builder
                 .Property(e => e.Id)
                 .HasColumnName("Id");
-                //.UseNpgsqlSerialColumn();
+            //.UseNpgsqlSerialColumn();
+
+            builder
+                .Property(e => e.RowVersion)
+                .HasColumnName("RowVersion")
+                .IsRowVersion()
+                .IsConcurrencyToken();
+                
+                //.HasColumnType("xid")
+                //.ValueGeneratedOnAddOrUpdate()
+                
         }
     }
 }

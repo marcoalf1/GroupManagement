@@ -11,7 +11,6 @@ namespace Playball.GroupManagement.Web.IoC
         public static IServiceCollection AddBussiness(this IServiceCollection services)
         {
 
-            //services.AddSingleton<IGroupsService, InMemoryGroupsService>();
             services.AddScoped<IGroupsService, GroupsService>();
 
             return services;
