@@ -22,6 +22,7 @@ namespace Playball.GroupManagement.Web.Controllers
         [Route("")]
         public async Task<IActionResult> GetAllAsync(CancellationToken ct)
         {
+            throw new System.Exception("Kaboom!");
             var result = await _groupsService.GetAllAsync(ct);
             return Ok(result.ToModel());
         }
